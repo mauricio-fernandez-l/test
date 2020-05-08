@@ -12,4 +12,6 @@ Test repo for experimentation
 
 ## Interactive content
 
-Use [Binder](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
+Use 
+[Binder](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
