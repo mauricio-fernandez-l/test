@@ -9,3 +9,7 @@ Test repo for experimentation
 
 [**2. Chapter**](02_Chapter)
 * [2.1 Analytical methods](02_Chapter/01_Analytical_methods.ipynb)
+
+## Interactive content
+
+Use [Binder](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
