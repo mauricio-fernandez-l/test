@@ -15,12 +15,15 @@ def bR(c1s,c2s,f2):
 
 #%% Plot
 
-def plot(c1s,c2s):
+def plot(c1s,c2s,orientation='v'):
     f2s = np.linspace(0,1,20)
     
     p = np.array([[f(c1s,c2s,f2) for f2 in f2s] for f in [bV,bR]])
     
-    fig,ax = plt.subplots(1,2,figsize=(10,4))
+    if orientation=='h':
+        fig,ax = plt.subplots(1,2,figsize=(10,4))
+    else:
+        fig,ax = plt.subplots(2,1,figsize=(5,8))
     
     y_labels = ['$c^*_1 = 3K^*$','$c^*_2 = 2G^*$']
     for i in [0,1]:
@@ -37,22 +40,22 @@ def plot(c1s,c2s):
 c1s = np.array([1,10])
 c2s = np.array([8,3])
 
+print('Static plot')
 plot(c1s,c2s)
 
 #%% Interactive plot
 
+# Variables
 c11 = widgets.IntSlider(1,min=1,max=10,description='$c^{(1)}_1 = 3K^{(1)}$')
 c12 = widgets.IntSlider(1,min=1,max=10,description='$c^{(1)}_2 = 2G^{(1)}$')
-
 c21 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_1 = 3K^{(2)}$')
 c22 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_2 = 2G^{(2)}$')
 
-head1 = widgets.HBox([widgets.Label('Material 1'),c11,c12])
-head2 = widgets.HBox([widgets.Label('Material 2'),c21,c22])
-
+# Function
 def plot2(c11,c12,c21,c22):
     plot(np.array([c11,c12]),np.array([c21,c22]))
 
+# Bottom
 bottom_manual = widgets.interactive(
     plot2
     ,{'manual':True}
@@ -60,8 +63,15 @@ bottom_manual = widgets.interactive(
 )
 bottom_manual.children[-2].description = 'Run/Update'
 
-def start():
-    display(head1)
-    display(head2)
+def start(device='smartphone'):
+    print('Starting interactive plots')
+    if device=='smartphone':
+        head = widgets.VBox([widgets.Label('Material 1'),c11,c12,widgets.Label('Material 2'),c21,c22])
+        display(head)
+    else: 
+        head1 = widgets.HBox([widgets.Label('Material 1'),c11,c12])
+        head2 = widgets.HBox([widgets.Label('Material 2'),c21,c22])
+        display(head1)
+        display(head2)
     display(bottom_manual.children[-2])
     display(bottom_manual.children[-1])
