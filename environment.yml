@@ -6,3 +6,4 @@ dependencies:
   - matplotlib 
   - ipywidgets
   - IPython
+  - scipy
