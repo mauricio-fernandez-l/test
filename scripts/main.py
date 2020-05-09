@@ -125,5 +125,5 @@ check_w = widgets.interactive(
     ,device=devices
 )
     
-def start_selective():
+def start_interactive():
     display(check_w)
