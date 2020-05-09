@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import ipywidgets as widgets
 from IPython.display import display
+from scipy.optimize import fsolve
 
 #%% Bounds
 
@@ -24,17 +25,42 @@ def aSIP(cIs,cMs):
 
 #%% Approximations
 
+# Vector representation of IS for iso(1,1)
+IS = np.array([1,1])
+
+# General
 def app(c1s,c2s,f2,a):
     return c1s + f2*(c2s-c1s)*a
 
+# DD
 def appDD1(c1s,c2s,f2):
     a = aSIP(cIs=c2s,cMs=c1s)
     return app(c1s,c2s,f2,a)
 
 def appDD2(c1s,c2s,f2):
     aS = aSIP(cIs=c1s,cMs=c2s)
-    a = (np.array([1,1])-(1-f2)*aS)
+    a = (IS-(1-f2)*aS)
     return app(c1s,c2s,1,a)
+
+# MT
+def appMT1(c1s,c2s,f2):
+    aS = aSIP(cIs=c2s,cMs=c1s)
+    a = 1/((1-f2)*1/aS+f2*IS)
+    return app(c1s,c2s,f2,a)
+
+def appMT2(c1s,c2s,f2):
+    aS = aSIP(cIs=c1s,cMs=c2s)
+    a = 1/((1-f2)*aS+f2*IS)
+    return app(c1s,c2s,f2,a)
+
+# SC1
+def appSC1(c1s,c2s,f2):
+    def eqs(ceffs):
+        a = aSIP(cIs=c2s,cMs=ceffs)
+        ceffs2 = app(c1s,c2s,f2,a)
+        return ceffs - ceffs2
+    initial_guess = (appMT1(c1s, c2s, f2) + appMT2(c1s, c2s, f2))/2
+    return np.array(fsolve(eqs,initial_guess))
 
 #%% Plot
 
@@ -43,7 +69,7 @@ def plot(c1s,c2s,orientation='h'):
     
     p = np.array([
         [f(c1s,c2s,f2) for f2 in f2s] 
-        for f in [bV,bR,appDD1,appDD2]
+        for f in [bV,bR,appDD1,appDD2,appMT1,appMT2,appSC1]
         ])
     
     if orientation=='h':
@@ -53,10 +79,13 @@ def plot(c1s,c2s,orientation='h'):
     
     y_labels = ['$c^*_1 = 3K^*$','$c^*_2 = 2G^*$']
     for i in [0,1]:
-        ax[i].plot(f2s,p[0,:,i],label='Voigt')
-        ax[i].plot(f2s,p[1,:,i],label='Reuss')
-        ax[i].plot(f2s,p[2,:,i],label='DD1')
-        ax[i].plot(f2s,p[3,:,i],label='DD2')
+        ax[i].plot(f2s,p[0,:,i],label='Voigt',color='red')
+        ax[i].plot(f2s,p[1,:,i],label='Reuss',color='red',linestyle='--')
+        ax[i].plot(f2s,p[2,:,i],label='DD1',color='blue')
+        ax[i].plot(f2s,p[3,:,i],label='DD2',color='blue',linestyle='--')
+        ax[i].plot(f2s,p[4,:,i],label='MT1',color='orange')
+        ax[i].plot(f2s,p[5,:,i],label='MT2',color='orange',linestyle='--')
+        ax[i].scatter(f2s,p[6,:,i],label='SC1',color='green')
         ax[i].set_ylim([0,10])
         ax[i].set_xlabel('$f^{(2)}$')
         ax[i].set_ylabel(y_labels[i])
@@ -65,11 +94,15 @@ def plot(c1s,c2s,orientation='h'):
     
 #%% Static plot
 
-c1s = np.array([1,10])
-c2s = np.array([8,3])
-
-print('Static plot')
-plot(c1s,c2s)
+def show_static_plot():    
+    c1s = np.array([1,10])
+    c2s = np.array([8,3])   
+    print('Static plot')
+    print('Material 1 eigenvalues:')
+    print(c1s)
+    print('Material 2 eigenvalues:')
+    print(c2s)
+    plot(c1s,c2s)
 
 #%% Interactive plot
 
@@ -95,7 +128,6 @@ def check(device):
     if device==0:
         print('Please choose a device.')
     if device==1:
-        print('You are using a computer')
         head1 = widgets.HBox([widgets.Label('Material 1'),c11,c12])
         head2 = widgets.HBox([widgets.Label('Material 2'),c21,c22])
         bottom = widgets.interactive(
