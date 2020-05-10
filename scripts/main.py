@@ -112,6 +112,11 @@ c12 = widgets.IntSlider(1,min=1,max=10,description='$c^{(1)}_2 = 2G^{(1)}$')
 c21 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_1 = 3K^{(2)}$')
 c22 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_2 = 2G^{(2)}$')
 
+c11s = widgets.Dropdown(options = [1,3,7,10], value = 1, description='$3K^{(1)}$')
+c12s = widgets.Dropdown(options = [1,3,7,10], value = 1, description='$2G^{(1)}$')
+c21s = widgets.Dropdown(options = [1,3,7,10], value = 10, description='$3K^{(2)}$')
+c22s = widgets.Dropdown(options = [1,3,7,10], value = 10, description='$2G^{(2)}$')
+
 # Interactive devices
 devices = widgets.Dropdown(
     options = [('',0),('computer',1),('smartphone',2)]
@@ -141,11 +146,14 @@ def check(device):
         display(bottom.children[-2])
         display(bottom.children[-1])
     if device==2:
-        head = widgets.VBox([widgets.Label('Material 1'),c11,c12,widgets.Label('Material 2'),c21,c22])
+        head = widgets.VBox([
+            c11s,c12s
+            ,c21s,c22s
+            ])
         bottom = widgets.interactive(
             plot_smartphone
             ,{'manual':True}
-            ,c11=c11,c12=c12,c21=c21,c22=c22
+            ,c11=c11s,c12=c12s,c21=c21s,c22=c22s
         )
         bottom.children[-2].description = 'Run/Update'
         display(head)
