@@ -86,7 +86,7 @@ def plot(c1s,c2s,orientation='h'):
         ax[i].plot(f2s,p[4,:,i],label='MT1',color='orange')
         ax[i].plot(f2s,p[5,:,i],label='MT2',color='orange',linestyle='--')
         ax[i].scatter(f2s,p[6,:,i],label='SC1',color='green')
-        ax[i].set_ylim([0,10])
+        ax[i].set_ylim([0,100])
         ax[i].set_xlabel('$f^{(2)}$')
         ax[i].set_ylabel(y_labels[i])
         ax[i].legend()
@@ -95,8 +95,8 @@ def plot(c1s,c2s,orientation='h'):
 #%% Static plot
 
 def show_static_plot():    
-    c1s = np.array([1,10])
-    c2s = np.array([8,3])   
+    c1s = np.array([10,100])
+    c2s = np.array([80,30])   
     print('Static plot')
     print('Material 1 eigenvalues:')
     print(c1s)
@@ -107,15 +107,15 @@ def show_static_plot():
 #%% Interactive plot
 
 # Interactive variables
-c11 = widgets.IntSlider(1,min=1,max=10,description='$c^{(1)}_1 = 3K^{(1)}$')
-c12 = widgets.IntSlider(1,min=1,max=10,description='$c^{(1)}_2 = 2G^{(1)}$')
-c21 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_1 = 3K^{(2)}$')
-c22 = widgets.IntSlider(10,min=1,max=10,description='$c^{(2)}_2 = 2G^{(2)}$')
+c11 = widgets.IntSlider(1,min=1,max=100,description='$c^{(1)}_1 = 3K^{(1)}$')
+c12 = widgets.IntSlider(1,min=1,max=100,description='$c^{(1)}_2 = 2G^{(1)}$')
+c21 = widgets.IntSlider(100,min=1,max=100,description='$c^{(2)}_1 = 3K^{(2)}$')
+c22 = widgets.IntSlider(100,min=1,max=100,description='$c^{(2)}_2 = 2G^{(2)}$')
 
-c11s = widgets.Dropdown(options = [1,3,7,10], value = 1, description='$3K^{(1)}$')
-c12s = widgets.Dropdown(options = [1,3,7,10], value = 1, description='$2G^{(1)}$')
-c21s = widgets.Dropdown(options = [1,3,7,10], value = 10, description='$3K^{(2)}$')
-c22s = widgets.Dropdown(options = [1,3,7,10], value = 10, description='$2G^{(2)}$')
+c11s = widgets.Dropdown(options = [1,10,50,100], value = 10, description='$3K^{(1)}$')
+c12s = widgets.Dropdown(options = [1,10,50,100], value = 10, description='$2G^{(1)}$')
+c21s = widgets.Dropdown(options = [1,10,50,100], value = 100, description='$3K^{(2)}$')
+c22s = widgets.Dropdown(options = [1,10,50,100], value = 100, description='$2G^{(2)}$')
 
 # Interactive devices
 devices = widgets.Dropdown(

@@ -2,6 +2,8 @@
 
 Creator: Mauricio Fernández
 
+Email: mauricio.fernandez.lb@gmail.com
+
 Test repo for experimentation
 
 ## Table of contents
