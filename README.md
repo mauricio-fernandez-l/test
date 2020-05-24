@@ -18,3 +18,5 @@ In order to use the interactive content of the notebooks of this repository, ope
 [Binder](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mauricio-fernandez-l/test/master)
 by clicking on the link or button next to it. This will take some time to load.
+
+Some small edit in spyder.
