@@ -6,6 +6,8 @@ import ipywidgets as widgets
 from IPython.display import display
 from scipy.optimize import fsolve
 
+print('Edit in spyder')
+
 
 # %% Bounds
 
