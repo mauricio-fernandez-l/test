@@ -11,7 +11,7 @@ def subtract(first_term, second_term):
     return first_term - second_term
 
 
-def multiply(a, b):
+def multiply(a,b):
     return a*b
 
 
