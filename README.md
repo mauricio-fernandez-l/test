@@ -1,7 +1,7 @@
 # test
 Test repo for experimentation
 
-[![Actions Status](https://github.com/mauricio-fernandez-l/test/workflows/python-app/badge.svg)](https://github.com/mauricio-fernandez-l/test/actions)
+![](https://github.com/mauricio-fernandez-l/test/workflows/.github/workflows/python-app.yml/badge.svg)
 
 ## Some subtitle
 
