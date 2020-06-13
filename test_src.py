@@ -1,6 +1,7 @@
 import numpy as np
 import sympy as sym
 import src.module as m
+import src.eq2pc as e2
 
 
 class TestSrc:
@@ -14,3 +15,7 @@ class TestSrc:
     def test_sym(self):
         a = m.f2(3)
         assert a == sym.Matrix([[3]])
+        
+    def test_eq2pc(self):
+        a = e2.Ceq_search([4, 3], [5])
+        assert np.sum(a) == 38
