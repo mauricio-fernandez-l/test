@@ -7,3 +7,11 @@ Test repo for experimentation
 ## Some subtitle
 
 More text
+
+## Requirements
+
+See [so](https://stackoverflow.com/questions/62885911/pip-freeze-creates-some-weird-path-instead-of-the-package-version)
+
+```shell
+pip list --format=freeze > requirements.txt
+```
