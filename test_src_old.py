@@ -15,7 +15,7 @@ class TestSrc:
     def test_sym(self):
         a = m.f2(3)
         assert a == sym.Matrix([[3]])
-        
+
     def test_eq2pc(self):
         a = e2.Ceq_search([4, 3], [5])
         assert np.sum(a) == 38
