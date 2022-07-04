@@ -133,7 +133,7 @@ def gS(d, nev, sh=True):
     Generate structure.
     """
     ntotal = np.prod(d)
-    S = np.zeros(ntotal, dtype=np.int)
+    S = np.zeros(ntotal, dtype=int)
     for ph in range(len(nev)):
         S[int(np.sum(nev[:ph])) : np.sum(nev[: ph + 1])] = ph + 1
     if sh:
@@ -303,7 +303,7 @@ def kbe(S, Ks=[]):
         if D == 2:
             Ks = [np.array([[1, 0], [0, 0]])]
         if D == 3:
-            Ks = [np.zeros([2, 2, 2], dtype=np.int)]
+            Ks = [np.zeros([2, 2, 2], dtype=int)]
             Ks[0][0, 0, 0] = 1
     return ka(phe(S, z=Ks[0].shape), Ks)
 
@@ -399,7 +399,7 @@ def Ceq_search(d, nev, b=True, ref=True, f=False, spec=False, tol=1e-13, info=Fa
     Ss = gS(d, nev, sh=False).flatten()[1:]
     Ss = np.array(list(multiset_permutations(Ss)))
     nSs = len(Ss)
-    Ss = np.hstack([np.ones([nSs, 1], dtype=np.int), Ss])
+    Ss = np.hstack([np.ones([nSs, 1], dtype=int), Ss])
     Ss = Ss.reshape([nSs] + list(d))
 
     # Compute correlations
@@ -439,7 +439,7 @@ def Ceq_search(d, nev, b=True, ref=True, f=False, spec=False, tol=1e-13, info=Fa
             cand = cand[check]
             if len(cand) > 0:
                 cand = unrelmax(np.array(cand), unrelloc)
-                event = np.zeros([1 + len(cand)] + d, dtype=np.int)
+                event = np.zeros([1 + len(cand)] + d, dtype=int)
                 event[0] = Si
                 for j in range(len(cand)):
                     event[j + 1] = Ss[cand[j]]
@@ -521,8 +521,8 @@ def root_load(folder, check=True):
     d = folder.split("d_")[1].split("_nev_")[0].split("_")
     d = [int(dd) for dd in d]
     files = np.sort(glob.glob(folder + "/*.dat"))
-    S1 = np.loadtxt(files[0], dtype=np.int).reshape(d)
-    S2 = np.loadtxt(files[1], dtype=np.int).reshape(d)
+    S1 = np.loadtxt(files[0], dtype=int).reshape(d)
+    S2 = np.loadtxt(files[1], dtype=int).reshape(d)
     if check:
         plot_S(S1)
         plot_S(S2)
