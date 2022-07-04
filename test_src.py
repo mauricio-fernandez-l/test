@@ -33,4 +33,4 @@ class TestEQ2PC:
 
     def test_save(self):
         folder = e2.Ceq_search_save([12], [5])
-        assert len(folder) > 0
+        assert len(folder) > 5
